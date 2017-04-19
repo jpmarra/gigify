@@ -1,0 +1,343 @@
+//_login.scss
+
+.page-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+canvas {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
+
+#particles-js {
+    background: $background-black;
+    display: block;
+    vertical-align: bottom;
+    width: 100vw;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#particles-js .particles-js-canvas-el {
+  background-image: url(../assets/loginbackground.png);
+  background-position: center;
+  background-size: cover;
+  width: 100vw!important;
+  height: 100vh!important;
+}
+
+.top-content-container {
+  height: 100vh;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 30px rgba(0,0,0,.8);
+}
+
+.header-logo {
+  margin-top: 2%;
+  width: 40vw;
+  z-index: 2;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    width: 100vw;
+  }
+}
+
+.page-subheader {
+  margin-top: 1%;
+  font: 25px 'Open Sans', sans-serif;
+  font-weight: bold;
+  z-index: 2;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    display: none;
+  }
+}
+
+.logos {
+  display: flex;
+  width: 100vw;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 4;
+  height: 15vh;
+}
+
+.downArrow {
+    color: $background-black;
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+i.icon.fa.fa-chevron-down.faa-pulse.animated {
+  font-size: 40px;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    font-size: 80px;
+  }
+}
+
+button.btn.btn-lg.spotify-auth-button {
+  display: flex;
+  justify-content: center;
+}
+
+.spotify-auth-button {
+  overflow:hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  color: $white;
+  background: $spotify-green;
+  box-shadow: 1px 1px 20px $background-black;
+  z-index: 1;
+  -webkit-transform: translate3d(0,0,1px);
+  transform: translate3d(0,0,1px);
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: $white !important;
+  }
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    border-radius: 25px;
+    width: 80vw;
+    height: 10vh;
+    font-size: 3.5em;
+  }
+
+}
+
+.introMsg {
+  font-family: $header-font;
+  font-weight: 900;
+  color: $background-black;
+  font-size: 30px;
+}
+
+.spotify-logo {
+  width: 3%;
+  z-index: 5;
+}
+
+.songkick-logo {
+  width: 3%;
+  z-index: 5;
+  margin-left: 2%;
+}
+
+.spotify-icon {
+  margin-right: 5%;
+}
+
+.aboutUs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 94.45vh;
+}
+
+.about-body {
+  margin-top: 2%;
+  margin-bottom: 3%;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    font-size: 30px;
+  }
+}
+
+.aboutHeader {
+  font-family: $header-font;
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  margin: 15px 0;
+}
+
+.developmentTeam {
+  font-family: $header-font;
+  font-weight: bold;
+}
+
+.devRow {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+.devName {
+  font-weight: bold;
+}
+
+.aboutGigify {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutSection {
+  height: 30vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gigifyDesc {
+  font-size: 14px;
+  width: 60vw;
+  height: 100vh;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    width: 100%;
+  }
+}
+
+.Developer {
+  text-align: center;
+}
+
+.profilePicture {
+  width: 100px;
+  height: auto;
+}
+
+.gitIcon {
+  width: 20px;
+}
+
+.linkedIcon {
+  width: 23px;
+}
+
+.footer {
+  display: flex;
+  bottom: 0;
+  position: relative;
+  height: 45px;
+}
+
+.footer-content {
+    width: 100vw;
+    margin: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 15px;
+    text-align: center;
+    background-color: $background-black;
+    color: #fff;
+}
+
+.github-link {
+  color: $spotify-green;
+}
+/* PULSE */
+.down {
+  display: flex;
+  flex-direction: column;
+  color: $background-black;
+  justify-content: center;
+  margin-top: 10%;
+  padding-bottom: 3vh;
+  z-index: 1;
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    margin-top: 30px;
+  }
+}
+
+
+.fa-chevron-down {
+  color: $white;
+}
+
+.downBtn:focus {
+    outline: none !important;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.faa-pulse.animated,
+.faa-pulse.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-pulse {
+  -webkit-animation: pulse 2s linear infinite;
+  animation: pulse 2s linear infinite;
+}
+
+.faa-pulse.animated.faa-fast,
+.faa-pulse.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-pulse.faa-fast {
+  -webkit-animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
+}
+
+.faa-pulse.animated.faa-slow,
+.faa-pulse.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-pulse.faa-slow {
+  -webkit-animation: pulse 3s linear infinite;
+  animation: pulse 3s linear infinite;
+}

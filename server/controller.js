@@ -1,9 +1,7 @@
-const passport = require('passport');
 const axios = require('axios');
 const moment = require('moment');
-const session = require('express-session');
 const SpotifyWebApi = require('spotify-web-api-node');
-const pool = require('./database');
+
 require('dotenv').config();
 
 const spotifyApi = new SpotifyWebApi({
@@ -12,18 +10,15 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://localhost:8000/auth/callback',
 });
 
-const getArtistIDList = (artistList) => {
-  return artistList.map((artist) => {
-    return spotifyApi.searchArtists(artist)
-            .then((response) => {
-                     return response.body.artists.items[0].id;
-            })
-            .catch(err => console.error('Spotify API Error: ', err));
-  });
-};
+const getArtistIDList = artistList => (
+  artistList.map(artist => (
+    spotifyApi.searchArtists(artist)
+            .then(response => response.body.artists.items[0].id)
+            .catch(err => console.error('Spotify API Error: ', err))
+  ))
+);
 const getTopTracks = artistIDList => artistIDList.map(artist => spotifyApi.getArtistTopTracks(artist, 'US')
       .then((data) => {
-        console.log('DATA', data.body.tracks);
         const tracks = data.body.tracks;
         const tracklist = {};
         tracklist[artist] = [];
@@ -41,34 +36,31 @@ const getTopTracks = artistIDList => artistIDList.map(artist => spotifyApi.getAr
       })
       .catch(err => console.error(err)));
 
-  const getArtistImages = artistIDList => spotifyApi.getArtists(artistIDList)
+const getArtistImages = artistIDList => spotifyApi.getArtists(artistIDList)
     .then((data) => {
       const artistImages = [];
       data.body.artists.forEach((artist) => {
         if (artist.images[1] === undefined) {
-          artistImages.push('Picture Unavailable');
+          artistImages.push('../assets/unavailable.png');
         } else {
           artistImages.push(artist.images[1].url);
         }
-
       });
-      return artistImages
+      return artistImages;
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err));
 
 let userID;
 
 module.exports = {
   getSpotlightOnePlaylist: (req, res) => {
-    //console.log('GETTING FIRST SPOTLIGHT REQUEST');
     res.send('FIRST FESTIVAL RESPONSE');
   },
   getSpotlightTwoPlaylist: (req, res) => {
-    //console.log('GETTING SECOND SPOTLIGHT REQUEST');
     res.send('SECOND FESTIVAL RESPONSE');
   },
   createPlaylist: (req, res) => {
-    console.log('SELECTED', req.body.selected);
+    // console.log('SELECTED', req.body.selected);
     Promise.all(getArtistIDList(req.body.selected))
       .then(artistIDList => getTopTracks(artistIDList))
       .then((tracksArray) => {
@@ -80,25 +72,20 @@ module.exports = {
           .then((merged) => {
             spotifyApi.getMe()
               .then((data) => {
-                console.log(data);
                 userID = data.body.id;
-                name = data.body.display_name;
+                const name = data.body.display_name;
                 return [userID, name];
               })
               .then((user) => {
                 spotifyApi.createPlaylist(user[0], `${user[1]}'s Gigify Playlist - ${moment().format('M/D, hA')}`, { public: false })
-                .then((data) => {
-                  //console.log('Created playlist!');
-                  return [user[0], data.body.id];
-                })
+                .then(data => [user[0], data.body.id])
                 .then((playlistInfo) => {
                   let tracksToAdd = [];
-                  for (artist in merged) {
+                  for (const artist in merged) {
                     tracksToAdd = tracksToAdd.concat(merged[artist]);
                   }
                   spotifyApi.addTracksToPlaylist(playlistInfo[0], playlistInfo[1], tracksToAdd)
-                    .then((data) => {
-                      //console.log('ADDED SONGS TO PLAYLIST');
+                    .then(() => {
                     })
                     .catch(err => console.error(err));
 
@@ -166,7 +153,8 @@ module.exports = {
           .then((imageUrls) => {
             events.forEach((event, i) => {
               event.imageUrl = imageUrls[i];
-            })
+              event.id = i;
+            });
           })
           .then(() => res.send(events));
     });
