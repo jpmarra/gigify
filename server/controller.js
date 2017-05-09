@@ -7,13 +7,20 @@ require('dotenv').config();
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.APP_KEY,
   clientSecret: process.env.APP_SECRET,
-  redirectUri: 'http://gigify.io/auth/callback',
+  redirectUri: 'http://localhost:8000/auth/callback',
 });
 
 const getArtistIDList = artistList => (
   artistList.map(artist => (
     spotifyApi.searchArtists(artist)
-            .then(response => response.body.artists.items[0].id)
+            .then((response) => {
+              if (response.body.artists.items[0] === undefined) {
+                console.log('not in spotify');
+                return '6bUJpbekaIlq2fT5FMV2mQ';
+              } else {
+                return response.body.artists.items[0].id;
+              }
+            })
             .catch(err => console.error('Spotify API Error: ', err))
   ))
 );
@@ -110,6 +117,7 @@ module.exports = {
     });
   },
   getEvents: (req, res) => {
+    console.log('request iniated');
     axios.get(`http://api.songkick.com/api/3.0/users/${req.params.username}/calendar.json?reason=tracked_artist&apikey=${process.env.SONGKICK_KEY}`)
     .then((results) => {
       const eventList = results.data.resultsPage.results.calendarEntry;
@@ -158,7 +166,10 @@ module.exports = {
               event.id = i;
             });
           })
-          .then(() => res.send(events));
+          .then(() => {
+            console.log('events');
+            res.send(events);
+          });
     });
   },
   spotifyApi,
